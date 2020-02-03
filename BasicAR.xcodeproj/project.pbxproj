@@ -10,6 +10,7 @@
 		9003F67123E597BA00E1A490 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9003F67023E597BA00E1A490 /* ImageSaver.swift */; };
 		9003F67523E6D0AF00E1A490 /* TransformPointToView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9003F67423E6D0AF00E1A490 /* TransformPointToView.swift */; };
 		9003F67723E6DEEE00E1A490 /* JointBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9003F67623E6DEEE00E1A490 /* JointBody.swift */; };
+		9003F67923E7479400E1A490 /* Angle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9003F67823E7479400E1A490 /* Angle.swift */; };
 		9036998323DA399D00E04970 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9036998223DA399D00E04970 /* AppDelegate.swift */; };
 		9036998523DA399D00E04970 /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9036998423DA399D00E04970 /* Scene.sks */; };
 		9036998723DA399D00E04970 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9036998623DA399D00E04970 /* Scene.swift */; };
@@ -42,6 +43,7 @@
 		9003F67023E597BA00E1A490 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 		9003F67423E6D0AF00E1A490 /* TransformPointToView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformPointToView.swift; sourceTree = "<group>"; };
 		9003F67623E6DEEE00E1A490 /* JointBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JointBody.swift; sourceTree = "<group>"; };
+		9003F67823E7479400E1A490 /* Angle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Angle.swift; sourceTree = "<group>"; };
 		9036997F23DA399D00E04970 /* NCA Knee Deviation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NCA Knee Deviation.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9036998223DA399D00E04970 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9036998423DA399D00E04970 /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				9003F67023E597BA00E1A490 /* ImageSaver.swift */,
 				9003F67423E6D0AF00E1A490 /* TransformPointToView.swift */,
 				9003F67623E6DEEE00E1A490 /* JointBody.swift */,
+				9003F67823E7479400E1A490 /* Angle.swift */,
 			);
 			path = BasicAR;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 			files = (
 				9036998923DA399D00E04970 /* ViewController.swift in Sources */,
 				9036998723DA399D00E04970 /* Scene.swift in Sources */,
+				9003F67923E7479400E1A490 /* Angle.swift in Sources */,
 				9036998323DA399D00E04970 /* AppDelegate.swift in Sources */,
 				9003F67523E6D0AF00E1A490 /* TransformPointToView.swift in Sources */,
 				9003F67723E6DEEE00E1A490 /* JointBody.swift in Sources */,
@@ -364,8 +368,12 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Anselmo Cardoso de Paiva (B8LU8YFLGP)";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = B8LU8YFLGP;
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -386,6 +394,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -424,8 +433,12 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Anselmo Cardoso de Paiva (B8LU8YFLGP)";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = B8LU8YFLGP;
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -439,6 +452,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -450,7 +464,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Anselmo Cardoso de Paiva (B8LU8YFLGP)";
+				CODE_SIGN_IDENTITY = "Apple Development: Anselmo Cardoso de Paiva (QT67Y334TZ)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = B8LU8YFLGP;
 				INFOPLIST_FILE = BasicAR/Info.plist;
@@ -458,9 +472,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = br.ufma.nca.orthopedic.automatic.knee;
+				PRODUCT_BUNDLE_IDENTIFIER = br.ufma.nca.orthopedic.knee;
 				PRODUCT_NAME = "NCA Knee Deviation";
-				PROVISIONING_PROFILE_SPECIFIER = "Measure Knee";
+				PROVISIONING_PROFILE_SPECIFIER = "Profile Knee Deviation Test";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -470,7 +484,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Anselmo Cardoso de Paiva (B8LU8YFLGP)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = B8LU8YFLGP;
 				INFOPLIST_FILE = BasicAR/Info.plist;
@@ -478,9 +492,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = br.ufma.nca.orthopedic.automatic.knee;
+				PRODUCT_BUNDLE_IDENTIFIER = br.ufma.nca.orthopedic.knee;
 				PRODUCT_NAME = "NCA Knee Deviation";
-				PROVISIONING_PROFILE_SPECIFIER = "Measure Knee";
+				PROVISIONING_PROFILE_SPECIFIER = "Profile Knee Deviation Test";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

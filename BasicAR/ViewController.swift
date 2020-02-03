@@ -117,17 +117,17 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
         let label = SKShapeNode(rectOf: CGSize(width: 80, height: 45), cornerRadius: 5)
         label.fillColor = UIColor.white
         
-        let text = SKLabelNode()
-        text.numberOfLines = 2
-        text.verticalAlignmentMode = .center
+        let textNode = SKLabelNode()
+        textNode.numberOfLines = 2
+        textNode.verticalAlignmentMode = .center
         
-        text.fontSize = 16
-        text.fontColor = UIColor.black
-        text.text = "joelho\ndoido"
+        textNode.fontSize = 16
+        textNode.fontColor = UIColor.black
+        textNode.text = text
         label.position = point
         label.strokeColor = UIColor.black
         
-        label.addChild(text)
+        label.addChild(textNode)
         
         
         sceneView.scene?.addChild(label)
@@ -224,8 +224,9 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
             
             
          drawBody(body: person, viewPortSize: viewPortSize, imageSize: imageSize, orientation: orientation)
+         
+         drawLabels(body: person, viewPortSize: viewPortSize, imageSize: imageSize, orientation: orientation)
             
-
         }
         
         
@@ -274,15 +275,52 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
                 addPoint(point: p)
             }
         
-        var lk = leftKnee
-        lk.x += 50
-        var rk = rightKnee
-        rk.x -= 50
-        addLabel(point: lk, text: "Left Knee")
-        addLabel(point: rk, text: "Right Knee")
-           
             
     }
+    
+    
+    
+    
+    func drawLabels(body :ARBody2D, viewPortSize:CGSize, imageSize: CGSize, orientation:UIInterfaceOrientation){
+        
+        let jointBody = JointBody(body: body)
+        var transform = TransformPointToView( viewPortSize: viewPortSize, imageSize: imageSize, orientation: orientation)
+
+        let leftKnee = transform.pointToView(point: jointBody.leftKnee)
+        let rightKnee = transform.pointToView(point: jointBody.rightKnee)
+        let leftHip = transform.pointToView(point: jointBody.leftHip)
+        let rightHip = transform.pointToView(point: jointBody.rightHip)
+        let leftFoot = transform.pointToView(point: jointBody.leftFoot)
+        let rightFoot = transform.pointToView(point: jointBody.rightFoot)
+        
+        var lPosition = leftKnee
+             lPosition.x += 50
+             var rPosition = rightKnee
+             rPosition.x -= 50
+             
+             let rightAngle = Angle.right(hip: rightHip, knee: rightKnee, foot: rightFoot)
+             let leftAngle = Angle.left(hip: leftHip, knee: leftKnee, foot: leftFoot)
+             
+             let ltype = leftAngle.devianType()
+             var lang = leftAngle.angle()
+             let rtype = rightAngle.devianType()
+             var rang = rightAngle.angle()
+             
+             if lang != nil, !lang.isNaN {
+                 lang = Float(floor(10*lang)/10) // leaves on first three decimal places
+                 let leftText = " \( lang)\n\(ltype)"
+                 addLabel(point: lPosition, text: leftText)
+             }
+             
+             if rang != nil, !rang.isNaN {
+                 rang = Float(floor(10*rang)/10) // leaves on first three decimal places
+                 let rightText = " \( rang)\n\(rtype)"
+                 addLabel(point: rPosition, text: rightText)
+                 
+             }
+    }
+    
+    
     
     func simd2Point( simd : simd_float2)->CGPoint{
         var point = CGPoint()
