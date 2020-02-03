@@ -41,9 +41,6 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
         button.center.x = self.view.center.x
         
         
-    
-        
-        
         // Load the SKScene from 'Scene.sks'
         if let scene = SKScene(fileNamed: "Scene") {
 
@@ -100,8 +97,6 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
     
     
     func addPoint(point : CGPoint){
-        
-        
         
         let circle = SKShapeNode(circleOfRadius: 5)
         
@@ -187,8 +182,8 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
     @IBAction func buttonAction(_ sender: Any) {
         
         let cgimage = cgImage(from: ciimage)
-        //var uiImage = UIImage(cgImage: cgimage!)
-        var uiImage = sceneView.largeContentImage!
+        var uiImage = UIImage(cgImage: cgimage!)
+        
         let imageSaver = ImageSaver()
         imageSaver.successHandler = {
             print("Success!")
@@ -224,7 +219,6 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
             
             
          drawBody(body: person, viewPortSize: viewPortSize, imageSize: imageSize, orientation: orientation)
-         
          drawLabels(body: person, viewPortSize: viewPortSize, imageSize: imageSize, orientation: orientation)
             
         }
@@ -237,37 +231,24 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
     func drawBody(body :ARBody2D, viewPortSize:CGSize, imageSize: CGSize, orientation:UIInterfaceOrientation){
         
         let jointBody = JointBody(body: body)
-        var transform = TransformPointToView( viewPortSize: viewPortSize, imageSize: imageSize, orientation: orientation)
+        var transform = TransformBodyPositionToView(body: jointBody, viewPortSize: viewPortSize, imageSize: imageSize, orientation: orientation)
 
-             let head = transform.pointToView(point: jointBody.head)
-             let torax = transform.pointToView(point: jointBody.torax)
-             let root = transform.pointToView(point: jointBody.root)
-             let leftShoulder = transform.pointToView(point: jointBody.leftShoulder)
-             let rightShoulder = transform.pointToView(point: jointBody.rightShoulder)
-             let leftElbow = transform.pointToView(point: jointBody.leftElbow)
-             let rightElbow = transform.pointToView(point: jointBody.rightElbow)
-             let leftHand = transform.pointToView(point: jointBody.leftHand)
-             let rightHand = transform.pointToView(point: jointBody.rightHand)
-             let leftHip = transform.pointToView(point: jointBody.leftHip)
-             let rightHip = transform.pointToView(point: jointBody.rightHip)
-             let leftKnee = transform.pointToView(point: jointBody.leftKnee)
-             let rightKnee = transform.pointToView(point: jointBody.rightKnee)
-             let leftFoot = transform.pointToView(point: jointBody.leftFoot)
-             let rightFoot = transform.pointToView(point: jointBody.rightFoot)
-             addLine(point1: head, point2: torax)
-             addLine(point1: torax, point2: leftShoulder)
-             addLine(point1: leftShoulder, point2: leftElbow)
-             addLine(point1: leftElbow, point2: leftHand)
-             addLine(point1: torax, point2: rightShoulder)
-             addLine(point1: rightShoulder, point2: rightElbow)
-             addLine(point1: rightElbow, point2: rightHand)
-             addLine(point1: torax, point2: root)
-             addLine(point1: root, point2: leftHip)
-             addLine(point1: leftHip, point2: leftKnee)
-             addLine(point1: leftKnee, point2: leftFoot)
-             addLine(point1: root, point2: rightHip)
-             addLine(point1: rightHip, point2: rightKnee)
-             addLine(point1: rightKnee, point2: rightFoot)
+        let body = transform.body
+        
+        addLine(point1: body.head, point2: body.torax)
+        addLine(point1: body.torax, point2: body.leftShoulder)
+        addLine(point1: body.leftShoulder, point2: body.leftElbow)
+        addLine(point1: body.leftElbow, point2: body.leftHand)
+        addLine(point1: body.torax, point2: body.rightShoulder)
+        addLine(point1: body.rightShoulder, point2: body.rightElbow)
+        addLine(point1: body.rightElbow, point2: body.rightHand)
+        addLine(point1: body.torax, point2: body.root)
+         addLine(point1: body.root, point2: body.leftHip)
+         addLine(point1: body.leftHip, point2: body.leftKnee)
+         addLine(point1: body.leftKnee, point2: body.leftFoot)
+         addLine(point1: body.root, point2: body.rightHip)
+         addLine(point1: body.rightHip, point2: body.rightKnee)
+         addLine(point1: body.rightKnee, point2: body.rightFoot)
         
             for joint in jointBody.joints{
                 
@@ -284,40 +265,33 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
     func drawLabels(body :ARBody2D, viewPortSize:CGSize, imageSize: CGSize, orientation:UIInterfaceOrientation){
         
         let jointBody = JointBody(body: body)
-        var transform = TransformPointToView( viewPortSize: viewPortSize, imageSize: imageSize, orientation: orientation)
+        let transform = TransformBodyPositionToView(body: jointBody, viewPortSize: viewPortSize, imageSize: imageSize, orientation: orientation)
 
-        let leftKnee = transform.pointToView(point: jointBody.leftKnee)
-        let rightKnee = transform.pointToView(point: jointBody.rightKnee)
-        let leftHip = transform.pointToView(point: jointBody.leftHip)
-        let rightHip = transform.pointToView(point: jointBody.rightHip)
-        let leftFoot = transform.pointToView(point: jointBody.leftFoot)
-        let rightFoot = transform.pointToView(point: jointBody.rightFoot)
+        let body = transform.body
         
-        var lPosition = leftKnee
-             lPosition.x += 50
-             var rPosition = rightKnee
-             rPosition.x -= 50
+        body.leftKnee.x += 50
+        body.rightKnee.x -= 50
              
-             let rightAngle = Angle.right(hip: rightHip, knee: rightKnee, foot: rightFoot)
-             let leftAngle = Angle.left(hip: leftHip, knee: leftKnee, foot: leftFoot)
+        let rightAngle = Angle.right(hip: body.rightHip, knee: body.rightKnee, foot: body.rightFoot)
+        let leftAngle = Angle.left(hip: body.leftHip, knee: body.leftKnee, foot: body.leftFoot)
+         
+         let ltype = leftAngle.devianType()
+         var lang = leftAngle.angle()
+         let rtype = rightAngle.devianType()
+         var rang = rightAngle.angle()
+         
+        if !lang.isNaN  {
+             lang = Float(floor(10*lang)/10) // leaves on first three decimal places
+             let leftText = " \( lang)\n\(ltype)"
+            addLabel(point: body.leftKnee, text: leftText)
+        }
+         
+         if !rang.isNaN {
+             rang = Float(floor(10*rang)/10) // leaves on first three decimal places
+             let rightText = " \( rang)\n\(rtype)"
+            addLabel(point: body.rightKnee, text: rightText)
              
-             let ltype = leftAngle.devianType()
-             var lang = leftAngle.angle()
-             let rtype = rightAngle.devianType()
-             var rang = rightAngle.angle()
-             
-             if lang != nil, !lang.isNaN {
-                 lang = Float(floor(10*lang)/10) // leaves on first three decimal places
-                 let leftText = " \( lang)\n\(ltype)"
-                 addLabel(point: lPosition, text: leftText)
-             }
-             
-             if rang != nil, !rang.isNaN {
-                 rang = Float(floor(10*rang)/10) // leaves on first three decimal places
-                 let rightText = " \( rang)\n\(rtype)"
-                 addLabel(point: rPosition, text: rightText)
-                 
-             }
+         }
     }
     
     
