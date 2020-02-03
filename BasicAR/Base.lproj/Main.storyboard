@@ -10,7 +10,7 @@
         <!--View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="BasicAR" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="NCA_Knee_Deviation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="U0K-SW-4ec">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -21,7 +21,8 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Nm-pG-Tad">
                                 <rect key="frame" x="189" y="789" width="34" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="square.and.arrow.down.fill" catalog="system"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" image="camera" catalog="system"/>
                                 <connections>
                                     <action selector="buttonAction:" destination="BV1-FR-VrT" eventType="touchUpInside" id="n2X-5j-GUc"/>
                                 </connections>
@@ -47,6 +48,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="square.and.arrow.down.fill" catalog="system" width="60" height="64"/>
+        <image name="camera" catalog="system" width="64" height="48"/>
     </resources>
 </document>
