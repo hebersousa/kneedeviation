@@ -16,7 +16,7 @@ class Angle{
     var knee = CGPoint()
     var isRight = true
     
-    private init() {
+    public init() {
         
     }
     
@@ -38,6 +38,7 @@ class Angle{
         angle.knee = knee
         angle.hip = hip
         angle.isRight = false
+        
            return angle
        }
     
@@ -49,20 +50,27 @@ class Angle{
         
         let KF = h - k
         let KT = f - k;
-        let  dotProduct = simd_dot(KF,KT)
-        let norms = getVectorDistance(KF, KT);
-        let cosin = dotProduct / norms;
 
+        let  dotProduct = simd_dot(KF,KT)
+
+        let norms = getVectorDistance(KF, KT);
+        
+        let cosin = dotProduct / norms;
+    
+        
         return radianToDegree(acos(cosin));
     }
     
     private func angleDirection() -> Float
         {
-             let tf = cgToFloat(hip) - cgToFloat( foot)
+             var tf = cgToFloat(hip) - cgToFloat( foot)
+             tf = simd_normalize(tf)
              var  tk =  cgToFloat( knee) - cgToFloat( foot);
              tk = simd_normalize(tk)
              let ortho = perpendicular(tf)
-         
+            
+            //print("ortho ",ortho.x, " ",ortho.y)
+            //print("angle direction ", simd_dot(ortho, tk))
              return  simd_dot(ortho, tk)
             
         }
@@ -98,12 +106,11 @@ class Angle{
     func devianType()-> String
     {
         let direction = angleDirection()
-        
         if isRight {
-            return (direction < 0 ) ? "Valgo" : "Varo"
+            return (direction > 0 ) ? "Valgo" : "Varo"
         }
         else{
-            return (direction >= 0 ) ? "Valgo" : "Varo"
+            return (direction <= 0 ) ? "Valgo" : "Varo"
         }
     }
 }

@@ -35,5 +35,12 @@ class TransformBodyPositionToView : TransformPointToView{
         self.body.leftFoot = self.pointToView(point: body.leftFoot)
         self.body.rightFoot = self.pointToView(point: body.rightFoot)
         
+        self.body.wLeftHip = self.pointToWorld(point: body.leftHip)
+        self.body.wRightHip = self.pointToWorld(point: body.rightHip)
+        self.body.wLeftKnee = self.pointToWorld(point: body.leftKnee)
+        self.body.wRightKnee = self.pointToWorld(point: body.rightKnee)
+        self.body.wLeftFoot = self.pointToWorld(point: body.leftFoot)
+        self.body.wRightFoot = self.pointToWorld(point: body.rightFoot)
+        
     }
 }

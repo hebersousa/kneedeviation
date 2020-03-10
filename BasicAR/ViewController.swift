@@ -18,6 +18,9 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
     var ciimage : CIImage = CIImage()
     var height : CGFloat = 0.0
     var width : CGFloat = 0.0
+    var countFrames = 1000.0
+    var rightAngle : Angle = Angle()
+    var leftAngle : Angle = Angle()
     
     
     override func viewDidLoad() {
@@ -243,12 +246,12 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
         addLine(point1: body.rightShoulder, point2: body.rightElbow)
         addLine(point1: body.rightElbow, point2: body.rightHand)
         addLine(point1: body.torax, point2: body.root)
-         addLine(point1: body.root, point2: body.leftHip)
-         addLine(point1: body.leftHip, point2: body.leftKnee)
-         addLine(point1: body.leftKnee, point2: body.leftFoot)
-         addLine(point1: body.root, point2: body.rightHip)
-         addLine(point1: body.rightHip, point2: body.rightKnee)
-         addLine(point1: body.rightKnee, point2: body.rightFoot)
+        addLine(point1: body.root, point2: body.leftHip)
+        addLine(point1: body.leftHip, point2: body.leftKnee)
+        addLine(point1: body.leftKnee, point2: body.leftFoot)
+        addLine(point1: body.root, point2: body.rightHip)
+        addLine(point1: body.rightHip, point2: body.rightKnee)
+        addLine(point1: body.rightKnee, point2: body.rightFoot)
         
             for joint in jointBody.joints{
                 
@@ -269,29 +272,40 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
 
         let body = transform.body
         
-        body.leftKnee.x += 50
-        body.rightKnee.x -= 50
-             
-        let rightAngle = Angle.right(hip: body.rightHip, knee: body.rightKnee, foot: body.rightFoot)
-        let leftAngle = Angle.left(hip: body.leftHip, knee: body.leftKnee, foot: body.leftFoot)
-         
-         let ltype = leftAngle.devianType()
+
+        if(countFrames > 60){
+             rightAngle = Angle.right(hip: body.wRightHip, knee: body.wRightKnee, foot: body.wRightFoot)
+             leftAngle = Angle.left(hip: body.wLeftHip, knee: body.wLeftKnee, foot: body.wLeftFoot)
+   
+            countFrames = 0
+        }
+
+        countFrames+=1
+        
          var lang = leftAngle.angle()
+         let ltype = leftAngle.devianType()
+        
+        var rang = rightAngle.angle()
          let rtype = rightAngle.devianType()
-         var rang = rightAngle.angle()
-         
+
+         body.leftKnee.x += 50
+         body.rightKnee.x -= 50
+        
         if !lang.isNaN  {
              lang = Float(floor(10*lang)/10) // leaves on first three decimal places
              let leftText = " \( lang)\n\(ltype)"
+            print(leftText)
             addLabel(point: body.leftKnee, text: leftText)
         }
          
          if !rang.isNaN {
              rang = Float(floor(10*rang)/10) // leaves on first three decimal places
              let rightText = " \( rang)\n\(rtype)"
+            print(rightText)
             addLabel(point: body.rightKnee, text: rightText)
              
          }
+        
     }
     
     

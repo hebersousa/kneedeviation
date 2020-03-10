@@ -77,6 +77,32 @@ class TransformPointToView {
         
     }
     
+    func pointToWorld (
+        point:CGPoint )->CGPoint{
+        
+        var imgSize = self.imageSize
+        var pImage = CGPoint()
+        pImage.x = point.x * self.imageSize.width
+        pImage.y = point.y * self.imageSize.height
+        
+                         
+        var size = self.viewPortSize
+        if(self.orientation.isPortrait){
+                             
+             size = swapAxis(size: viewPortSize)
+         }
+         
+         let newHeight = imageSize.width * size.height/size.width
+         
+         let cropedHeight = imageSize.height - newHeight
+         
+         imgSize.height = newHeight
+         pImage.y = newHeight - pImage.y
+        
+        return pImage
+    }
+    
+
     private func invertXAxis( point:CGPoint, size:CGSize) ->CGPoint{
        var p = point;
          p.x = size.width - point.x
