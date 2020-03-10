@@ -26,6 +26,8 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
+
         // Set the view's delegate
         sceneView.delegate = self
         sceneView.session.delegate = self
@@ -72,6 +74,16 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("* viewWillAppear *")
+        
+        
+        // If the iOS device doesn't support body tracking, raise a developer error for
+        // this unhandled case.
+        if !ARBodyTrackingConfiguration.isSupported  {
+            //fatalError("This feature is only supported on devices with an A12 chip")
+             addLabel(point : CGPoint(x: 0.0, y: 0.0), text : "Aparelho nao suportado",width: 200)
+        }
+        
+        
         // Create a session configuration
         let configuration = ARBodyTrackingConfiguration()
 
@@ -111,8 +123,9 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
         
     }
 
-    func addLabel(point : CGPoint, text : String){
-        let label = SKShapeNode(rectOf: CGSize(width: 80, height: 45), cornerRadius: 5)
+    func addLabel(point : CGPoint, text : String, width: CGFloat = 80){
+
+        let label = SKShapeNode(rectOf: CGSize(width: width, height: 45), cornerRadius: 5)
         label.fillColor = UIColor.white
         
         let textNode = SKLabelNode()
@@ -190,6 +203,7 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
         let imageSaver = ImageSaver()
         imageSaver.successHandler = {
             print("Success!")
+            self.showToast(message: "Foto Capturada")
         }
 
         imageSaver.errorHandler = {
@@ -315,5 +329,26 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
         point.x = CGFloat(simd[0])
         point.y = CGFloat(simd[1])
         return point
+    }
+    
+    
+    func showToast(message : String) {
+
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-100, width: 150, height: 35))
+        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        toastLabel.textColor = UIColor.white
+       // toastLabel.font = font
+        toastLabel.textAlignment = .center;
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10;
+        toastLabel.clipsToBounds  =  true
+        toastLabel.center = self.view.center
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+             toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
     }
 }
