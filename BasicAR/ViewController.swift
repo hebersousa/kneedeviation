@@ -199,17 +199,23 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
         
         let cgimage = cgImage(from: ciimage)
         var uiImage = UIImage(cgImage: cgimage!)
+        //let portraitImage = UIImage(cgImage: landscapeCGImage, scale: landscapeImage.scale, orientation: .right)
+        let portraitImage = UIImage(cgImage: cgimage!, scale: uiImage.scale, orientation: .right)
+        
+        
         
         let imageSaver = ImageSaver()
         imageSaver.successHandler = {
             print("Success!")
-            self.showToast(message: "Foto Capturada")
+            
+            self.takeScreenshot()
+            
         }
 
         imageSaver.errorHandler = {
             print("Oops: \($0.localizedDescription)")
         }
-        imageSaver.writeToPhotoAlbum(image: uiImage)
+        imageSaver.writeToPhotoAlbum(image: portraitImage)
     }
     
    
@@ -351,4 +357,22 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
             toastLabel.removeFromSuperview()
         })
     }
+    
+    func takeScreenshot(){
+        let scene = (self.sceneView.scene)!
+        let bounds = scene.view?.bounds
+        UIGraphicsBeginImageContextWithOptions(bounds!.size, true, UIScreen.main.scale )
+        scene.view!.drawHierarchy(in: bounds!, afterScreenUpdates: true)
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        UIImageWriteToSavedPhotosAlbum(screenshot!,nil,nil,nil)
+        
+        self.showToast(message: "Foto Capturada")
+        
+        
+    }
+    
+    
+    
+   
 }
