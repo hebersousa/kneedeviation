@@ -14,6 +14,7 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
     
     @IBOutlet var sceneView: ARSKView!
    
+    @IBOutlet weak var patienceButton: UIButton!
     @IBOutlet weak var button: UIButton!
     var ciimage : CIImage = CIImage()
     var height : CGFloat = 0.0
@@ -36,14 +37,19 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
         sceneView.showsFPS = true
         sceneView.showsNodeCount = true
     
+        estilizeButton( button)
+        estilizeButton( patienceButton)
+        
+        /*
         button.frame = CGRect(x: 160, y: 160, width: 40, height: 40)
         button.backgroundColor = UIColor.white
         button.layer.cornerRadius = 0.5 * button.bounds.size.width/2
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.layer.borderWidth = 1.0
         button.clipsToBounds = true
-        button.center.y = self.view.bounds.size.height - 60
-        button.center.x = self.view.center.x
+        */
+       // button.center.y = self.view.bounds.size.height - 60
+       // button.center.x = self.view.center.x
         
         
         // Load the SKScene from 'Scene.sks'
@@ -97,6 +103,18 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
         yourline.path = pathToDraw
         yourline.strokeColor = SKColor.red
         sceneView.scene?.addChild(yourline)
+    }
+    
+    func estilizeButton(_ bt : UIButton){
+        
+        bt.frame = CGRect(x: 160, y: 160, width: 40, height: 40)
+        bt.backgroundColor = UIColor.white
+        bt.layer.cornerRadius = 0.5 * bt.bounds.size.width/2
+        bt.layer.borderColor = UIColor.lightGray.cgColor
+        bt.layer.borderWidth = 1.0
+        bt.clipsToBounds = true
+        
+        
     }
     
     func addLine( point1 : CGPoint, point2 : CGPoint){
