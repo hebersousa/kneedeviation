@@ -215,28 +215,36 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
     
     @IBAction func buttonAction(_ sender: Any) {
         
-        let cgimage = cgImage(from: ciimage)
-        var uiImage = UIImage(cgImage: cgimage!)
-        //let portraitImage = UIImage(cgImage: landscapeCGImage, scale: landscapeImage.scale, orientation: .right)
-        let portraitImage = UIImage(cgImage: cgimage!, scale: uiImage.scale, orientation: .right)
+        AlertService.add(in: self) { patient in
+                  print(patient)
+              }
         
-        
-        
-        let imageSaver = ImageSaver()
-        imageSaver.successHandler = {
-            print("Success!")
-            
-            self.takeScreenshot()
-            
-        }
-
-        imageSaver.errorHandler = {
-            print("Oops: \($0.localizedDescription)")
-        }
-        imageSaver.writeToPhotoAlbum(image: portraitImage)
+        //saveImage()
+   
     }
     
-   
+    func saveImage(){
+        
+        
+           let cgimage = cgImage(from: ciimage)
+           var uiImage = UIImage(cgImage: cgimage!)
+           //let portraitImage = UIImage(cgImage: landscapeCGImage, scale: landscapeImage.scale, orientation: .right)
+           let portraitImage = UIImage(cgImage: cgimage!, scale: uiImage.scale, orientation: .right)
+           
+           let imageSaver = ImageSaver()
+           imageSaver.successHandler = {
+               print("Success!")
+               
+               self.takeScreenshot()
+               
+           }
+
+           imageSaver.errorHandler = {
+               print("Oops: \($0.localizedDescription)")
+           }
+           imageSaver.writeToPhotoAlbum(image: portraitImage)
+        
+    }
     
     func session(_ session: ARSession, didUpdate frame: ARFrame){         // Accessing ARBody2D Object from ARFrame
         sceneView.scene?.removeAllChildren()

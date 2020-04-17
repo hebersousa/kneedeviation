@@ -8,8 +8,8 @@
 
 import UIKit
 
-var patients = ["Maria", "Jorge","Doroteia","Amelie"]
-
+//var patients = ["Maria", "Jorge","Doroteia","Amelie"]
+var patients = [Patient]()
 class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
    
     
@@ -20,15 +20,15 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
-        let cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "cell")
-        cell.textLabel?.text = patients[indexPath.row]
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
+        cell.textLabel?.text = patients[indexPath.row].name
         
         return(cell)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath){
         
-        if(editingStyle == UITableViewCell.EditingStyle.delete){
+        if(editingStyle == .delete){
             patients.remove(at: indexPath.row)
             self.tableView.reloadData()
         }
