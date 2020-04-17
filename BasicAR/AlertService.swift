@@ -32,7 +32,7 @@ class AlertService {
                 else {
                     
                     return }
-            let patient = Patient(id:1, name: name, age: age , gender: "M")
+            let patient = Patient( name: name, age: age , gender: "M")
             completion(patient)
            
         }

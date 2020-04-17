@@ -8,9 +8,17 @@
 
 import Foundation
 
-struct Patient{
-    let id : Int
+struct Patient: Codable{
+    //let id : Int
+    var id : String? = nil
     var name : String
     var age : Int
-    var gender : Character
+    var gender : String
+    
+    init(name: String, age: Int, gender: String) {
+        self.name = name
+        self.age = age
+        self.gender = gender
+        
+    }
 }

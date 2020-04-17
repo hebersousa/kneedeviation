@@ -45,7 +45,13 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let patient = Patient(name: "Carla", age: 45, gender: "F")
+        //FirebaseService.shared.create(for: patient)
+        
+        FirebaseService.shared.read(returning: Patient.self) { (patients) in
+            patients = 
+            
+        }        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
