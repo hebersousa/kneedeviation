@@ -20,16 +20,36 @@ class FirebaseService{
     
     
     
-    func create<T: Encodable>(for encondabelObject: T) {
+    func create<T: Encodable>(for encondabelObject: T/*, returning objectType: T*/, completion: @escaping (String)->Void)  {
        
         do {
             let json =  try encondabelObject.toJson()
             let patientsReference = Firestore.firestore().collection("patients")
-                   patientsReference.addDocument(data: json)
+            
+            var ref: DocumentReference? = nil
+            
+             ref = patientsReference.addDocument(data: json){ err in
+                if let err = err {
+                    print("Error adding document: \(err)")
+                } else {
+                    do {
+                        
+                       // let object = try  ref!.decode(as:  T)
+                        completion(ref!.documentID)
+                        
+                    }catch {
+                        
+                    }
+                   
+                    print("Document added with ID: \(ref!.documentID)")
+                    
+                }
+            }
             
         } catch {
             print(error)
         }
+        
         
         // let parameters : [String: Any] = ["id":1, "name":"Maria","age":32, "gender":"F" ]
         
@@ -47,7 +67,8 @@ class FirebaseService{
                 for document in snapshot.documents {
                     let object = try  document.decode(as:  objectType.self)
                     objects.append(object)
-                   // print(document.data())
+                    print(document.data())
+                    print(object)
                 }
                 
                 completion(objects)

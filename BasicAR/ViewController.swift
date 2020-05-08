@@ -9,8 +9,16 @@
 import UIKit
 import SpriteKit
 import ARKit
+import Photos
+
 
 class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
+    
+    enum StorageType {
+        case userDefaults
+        case fileSystem
+    }
+
     
     @IBOutlet var sceneView: ARSKView!
    
@@ -216,14 +224,21 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
     @IBAction func buttonAction(_ sender: Any) {
         
         AlertService.add(in: self) { patient in
-                  print(patient)
-              }
+            
+            print(patient)
+            FirebaseService.shared.create(for: patient) { (id) in
+            
+                self.saveImage(key: id)
+                
+            }
+            
+        }
         
-        //saveImage()
+        
    
     }
     
-    func saveImage(){
+    func saveImage(key: String){
         
         
            let cgimage = cgImage(from: ciimage)
@@ -242,8 +257,25 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
            imageSaver.errorHandler = {
                print("Oops: \($0.localizedDescription)")
            }
-           imageSaver.writeToPhotoAlbum(image: portraitImage)
+       // imageSaver.writeToPhotoAlbum(image: portraitImage)
         
+            DispatchQueue.global(qos: .background).async {
+                ImageIOService.store(image: portraitImage,
+                           forKey: key,
+                           withStorageType: .fileSystem)
+                                
+            }
+        
+            
+        
+        /*
+        UIImageWriteToSavedPhotosAlbum(image: portraitImage,)
+        
+        ALAssetsLibrary().writeImageToSavedPhotosAlbum(editedImage.CGImage, orientation: ALAssetOrientation(rawValue: editedImage.imageOrientation.rawValue)!,
+            completionBlock:{ (path:NSURL!, error:NSError!) -> Void in
+                print("\(path)")
+        })
+        */
     }
     
     func session(_ session: ARSession, didUpdate frame: ARFrame){         // Accessing ARBody2D Object from ARFrame
@@ -396,6 +428,32 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
         self.showToast(message: "Foto Capturada")
         
         
+    }
+    
+    
+    @objc
+    private func save() {
+        if let buildingImage = UIImage(named: "building") {
+            DispatchQueue.global(qos: .background).async {
+                ImageIOService.store(image: buildingImage,
+                           forKey: "buildingImage",
+                           withStorageType: .fileSystem)
+            }
+        }
+    }
+    
+    @objc
+    private func display() {
+        DispatchQueue.global(qos: .background).async {
+            if let savedImage = ImageIOService.retrieveImage(forKey: "buildingImage",
+                                                   inStorageType: .fileSystem) {
+                /*
+                DispatchQueue.main.async {
+                    self.savedImageDisplayImageView.image = savedImage
+                }
+                */
+            }
+        }
     }
     
     

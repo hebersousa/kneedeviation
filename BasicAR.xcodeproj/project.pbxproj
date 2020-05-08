@@ -13,6 +13,8 @@
 		9003F67523E6D0AF00E1A490 /* TransformPointToView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9003F67423E6D0AF00E1A490 /* TransformPointToView.swift */; };
 		9003F67723E6DEEE00E1A490 /* JointBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9003F67623E6DEEE00E1A490 /* JointBody.swift */; };
 		9003F67923E7479400E1A490 /* Angle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9003F67823E7479400E1A490 /* Angle.swift */; };
+		9032DA202465D9D10084F433 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9032DA1F2465D9D10084F433 /* Photos.framework */; };
+		9032DA262465F7800084F433 /* ImageIOService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9032DA252465F7800084F433 /* ImageIOService.swift */; };
 		9036998323DA399D00E04970 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9036998223DA399D00E04970 /* AppDelegate.swift */; };
 		9036998523DA399D00E04970 /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9036998423DA399D00E04970 /* Scene.sks */; };
 		9036998723DA399D00E04970 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9036998623DA399D00E04970 /* Scene.swift */; };
@@ -61,6 +63,9 @@
 		9003F67423E6D0AF00E1A490 /* TransformPointToView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformPointToView.swift; sourceTree = "<group>"; };
 		9003F67623E6DEEE00E1A490 /* JointBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JointBody.swift; sourceTree = "<group>"; };
 		9003F67823E7479400E1A490 /* Angle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Angle.swift; sourceTree = "<group>"; };
+		9032DA1D2465D8D80084F433 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		9032DA1F2465D9D10084F433 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		9032DA252465F7800084F433 /* ImageIOService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageIOService.swift; sourceTree = "<group>"; };
 		9036997F23DA399D00E04970 /* NCA Knee Deviation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NCA Knee Deviation.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9036998223DA399D00E04970 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9036998423DA399D00E04970 /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
@@ -94,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9032DA202465D9D10084F433 /* Photos.framework in Frameworks */,
 				60FB684677A95C3F465389D7 /* Pods_BasicAR.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,11 +126,43 @@
 		8CA6DC83C53F7218EDBF6709 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9032DA1F2465D9D10084F433 /* Photos.framework */,
+				9032DA1D2465D8D80084F433 /* AssetsLibrary.framework */,
 				7385C468F7799821617FF715 /* Pods_BasicAR.framework */,
 				373D0A03B81CC0FA4D4BFED0 /* Pods_BasicAR_BasicARUITests.framework */,
 				BF826D0FAFE787DC2E87E2D8 /* Pods_BasicARTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9032DA272465F87B0084F433 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				9003F67023E597BA00E1A490 /* ImageSaver.swift */,
+				90679F9D2449C6DD00821791 /* AlertService.swift */,
+				90679FA32449E9B000821791 /* FirebaseService.swift */,
+				9032DA252465F7800084F433 /* ImageIOService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		9032DA282465F8C90084F433 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9003F67623E6DEEE00E1A490 /* JointBody.swift */,
+				9003F67823E7479400E1A490 /* Angle.swift */,
+				90679F9B2449BA8800821791 /* Patient.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9032DA292465F9390084F433 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				90A74439244A2A4400C20D75 /* EncodableExtension.swift */,
+				90A7443B244A313C00C20D75 /* SnapshotExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		9036997623DA399D00E04970 = {
@@ -152,6 +190,9 @@
 		9036998123DA399D00E04970 /* BasicAR */ = {
 			isa = PBXGroup;
 			children = (
+				9032DA292465F9390084F433 /* Extensions */,
+				9032DA282465F8C90084F433 /* Models */,
+				9032DA272465F87B0084F433 /* Services */,
 				90679FA12449E5E000821791 /* GoogleService-Info.plist */,
 				90940E9D2418341C00D93E0F /* TransformBodyPositionToView.swift */,
 				9036998223DA399D00E04970 /* AppDelegate.swift */,
@@ -162,16 +203,8 @@
 				9036998D23DA399E00E04970 /* Assets.xcassets */,
 				9036998F23DA399E00E04970 /* LaunchScreen.storyboard */,
 				9036999223DA399E00E04970 /* Info.plist */,
-				9003F67023E597BA00E1A490 /* ImageSaver.swift */,
 				9003F67423E6D0AF00E1A490 /* TransformPointToView.swift */,
-				9003F67623E6DEEE00E1A490 /* JointBody.swift */,
-				9003F67823E7479400E1A490 /* Angle.swift */,
 				904E07FD243F7B8A0033DC58 /* ListViewController.swift */,
-				90679F9B2449BA8800821791 /* Patient.swift */,
-				90679F9D2449C6DD00821791 /* AlertService.swift */,
-				90679FA32449E9B000821791 /* FirebaseService.swift */,
-				90A74439244A2A4400C20D75 /* EncodableExtension.swift */,
-				90A7443B244A313C00C20D75 /* SnapshotExtension.swift */,
 			);
 			path = BasicAR;
 			sourceTree = "<group>";
@@ -461,6 +494,7 @@
 				9036998323DA399D00E04970 /* AppDelegate.swift in Sources */,
 				904E07FE243F7B8A0033DC58 /* ListViewController.swift in Sources */,
 				90A7443C244A313C00C20D75 /* SnapshotExtension.swift in Sources */,
+				9032DA262465F7800084F433 /* ImageIOService.swift in Sources */,
 				9003F67523E6D0AF00E1A490 /* TransformPointToView.swift in Sources */,
 				9003F67723E6DEEE00E1A490 /* JointBody.swift in Sources */,
 				9003F67123E597BA00E1A490 /* ImageSaver.swift in Sources */,

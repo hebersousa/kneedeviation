@@ -37,6 +37,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
 
     @IBAction func hideView(_ sender: UIButton) {
+        
         dismiss(animated: true, completion: nil)
     }
     
@@ -45,17 +46,27 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let patient = Patient(name: "Carla", age: 45, gender: "F")
+        
+        
+        
+        
+        let patient = Patient(name: "Carlos", age: 50, gender: "M")
         //FirebaseService.shared.create(for: patient)
         
-        FirebaseService.shared.read(returning: Patient.self) { (patients) in
-            patients = 
+        FirebaseService.shared.read(returning: Patient.self) { (pts) in
+            patients = pts
+            self.tableView.reloadData()
             
         }        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.tableView.reloadData()
+            
+            FirebaseService.shared.read(returning: Patient.self) { (pts) in
+                patients = pts
+                self.tableView.reloadData()
+                
+            }
     }
     
 

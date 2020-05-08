@@ -10,7 +10,7 @@ import Foundation
 
 struct Patient: Codable{
     //let id : Int
-    var id : String? = nil
+    var id : String? = ""
     var name : String
     var age : Int
     var gender : String
@@ -19,6 +19,7 @@ struct Patient: Codable{
         self.name = name
         self.age = age
         self.gender = gender
+        
         
     }
 }
