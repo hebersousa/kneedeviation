@@ -57,6 +57,22 @@ class ImageIOService {
               
               return nil
           }
+    
+    static func deleteImage(forKey key: String) -> Void {
+        
+                    if let filePath = filePath(forKey: key){
+                        do{
+                            try FileManager.default.removeItem(at: filePath)
+                        }catch{
+                            print("comportamento inesperado")
+                        }
+                        
+                    }
+    }
+        
+        
+        
+    
        
        static func filePath(forKey key: String) -> URL? {
            let fileManager = FileManager.default

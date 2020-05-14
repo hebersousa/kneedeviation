@@ -36,7 +36,7 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
         super.viewDidLoad()
         
 
-
+        self.navigationController?.isNavigationBarHidden = true
         // Set the view's delegate
         sceneView.delegate = self
         sceneView.session.delegate = self
@@ -89,7 +89,7 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
         super.viewWillAppear(animated)
         print("* viewWillAppear *")
         
-        
+        self.navigationController?.isNavigationBarHidden = true
         // If the iOS device doesn't support body tracking, raise a developer error for
         // this unhandled case.
         if !ARBodyTrackingConfiguration.isSupported  {
@@ -223,16 +223,34 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
     
     @IBAction func buttonAction(_ sender: Any) {
         
-        AlertService.add(in: self) { patient in
+        
+        FirebaseService.shared.countDocuments() { (count) in
+                   
+            self.saveImage(key: String(count))
+            let leftA = self.leftAngle
+            let rightA = self.rightAngle
             
-            print(patient)
-            FirebaseService.shared.create(for: patient) { (id) in
-            
-                self.saveImage(key: id)
+            AlertService.add(in: self) { patient in
+                var p = patient
+                p.order = count
+                p.leftAngle = leftA
+                p.rightAngle = rightA
+                
+                print(p)
+                
+                FirebaseService.shared.create(for: p) { (id) in
+                
+                    //self.saveImage(key: id)
+                }
                 
             }
+                       
             
         }
+        
+        
+        
+
         
         
    
@@ -244,7 +262,7 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
            let cgimage = cgImage(from: ciimage)
            var uiImage = UIImage(cgImage: cgimage!)
            //let portraitImage = UIImage(cgImage: landscapeCGImage, scale: landscapeImage.scale, orientation: .right)
-           let portraitImage = UIImage(cgImage: cgimage!, scale: uiImage.scale, orientation: .right)
+        let portraitImage = UIImage(cgImage: cgimage!, scale: uiImage.scale, orientation: .right)
            
            let imageSaver = ImageSaver()
            imageSaver.successHandler = {
@@ -258,6 +276,8 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
                print("Oops: \($0.localizedDescription)")
            }
        // imageSaver.writeToPhotoAlbum(image: portraitImage)
+        
+            self.takeScreenshot()
         
             DispatchQueue.global(qos: .background).async {
                 ImageIOService.store(image: portraitImage,
@@ -280,6 +300,18 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
     
     func session(_ session: ARSession, didUpdate frame: ARFrame){         // Accessing ARBody2D Object from ARFrame
         sceneView.scene?.removeAllChildren()
+        
+       /*
+        switch frame.camera.trackingState {
+            case .normal:
+                print("Normal")
+            case .limited:
+                print("Limited")
+            default:
+                print("Not Available")
+        }
+      */
+    
         
         height = (sceneView.scene?.size.height)!
         width = (sceneView.scene?.size.width)!

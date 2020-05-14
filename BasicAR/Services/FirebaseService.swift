@@ -18,7 +18,23 @@ class FirebaseService{
         FirebaseApp.configure()
     }
     
-    
+    func countDocuments(completion: @escaping (Int)->Void ) {
+        let patientsReference = Firestore.firestore().collection("patients")
+        patientsReference.getDocuments()
+             {
+                 (querySnapshot, err) in
+
+                 if let err = err
+                 {
+                     print("Error getting documents: \(err)");
+                 }
+                 else
+                 {
+                    completion(querySnapshot!.count)
+                     
+                 }
+             }
+    }
     
     func create<T: Encodable>(for encondabelObject: T/*, returning objectType: T*/, completion: @escaping (String)->Void)  {
        
@@ -78,13 +94,32 @@ class FirebaseService{
         }
     }
     
-    func update() {
-        let patientsReference = Firestore.firestore().collection("patients")
-        patientsReference.document("d1Ct4IyEQPAOXESr1l0O").setData(["id":01, "name":"Maria Eduarda"])
+    func update<T: Encodable &  Identifiable>(for encodableObject: T) {
         
+        do{
+            let patientsReference = Firestore.firestore().collection("patients")
+            let json = try encodableObject.toJson()
+            guard let  id = encodableObject.id else { throw MyError.encodingError }
+            patientsReference.document(id).setData(json)
+            
+        }catch{
+            print(error)
+        }
+        
+        //let patientsReference = Firestore.firestore().collection("patients")
+        //patientsReference.document("d1Ct4IyEQPAOXESr1l0O").setData(["id":01, "name":"Maria Eduarda"])
     }
     
-    func delete() {
+    func delete<T: Identifiable >(_ identifiableObject: T) {
+        do{
+             
+            guard let id = identifiableObject.id else  { throw MyError.encodingError }
+            let patientsReference = Firestore.firestore().collection("patients")
+            patientsReference.document(id).delete()
+            
+        } catch {
+            print(error)
+        }
         
     }
 }

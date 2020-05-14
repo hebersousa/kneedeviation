@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class Angle{
+class Angle: Codable{
     
     var hip = CGPoint()
     var foot = CGPoint()

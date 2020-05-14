@@ -33,8 +33,18 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath){
         
+        let patient = patients[indexPath.row]
+        
         if(editingStyle == .delete){
+            
+            if let id = patient.id  {
+                
+                ImageIOService.deleteImage(forKey: id)
+            }
             patients.remove(at: indexPath.row)
+            
+            FirebaseService.shared.delete(patient)
+            
             self.tableView.reloadData()
         }
     }
@@ -51,9 +61,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-        
-        
+        self.navigationController?.isNavigationBarHidden = false
         
         let patient = Patient(name: "Carlos", age: 50, gender: "M")
         //FirebaseService.shared.create(for: patient)
@@ -66,7 +74,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func viewDidAppear(_ animated: Bool) {
-            
+            self.navigationController?.isNavigationBarHidden = false
             FirebaseService.shared.read(returning: Patient.self) { (pts) in
                 patients = pts
                 self.tableView.reloadData()
@@ -77,6 +85,11 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(identifier: "DetailViewController") as? DetailViewController
+        
+        vc!.patient = patients[indexPath.row]
+        
         self.navigationController?.pushViewController(vc!, animated: true)
+        
+        
     }
 }
