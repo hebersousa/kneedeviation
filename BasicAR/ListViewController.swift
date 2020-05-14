@@ -12,18 +12,23 @@ import UIKit
 var patients = [Patient]()
 class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
    
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return patients.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? TableViewCell
+        cell?.lbl.text = patients[indexPath.row].name
         
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
-        cell.textLabel?.text = patients[indexPath.row].name
+        return(cell!)
+        //let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
+        //cell.textLabel?.text = patients[indexPath.row].name
         
-        return(cell)
+        //return(cell)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath){
@@ -70,14 +75,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = storyboard?.instantiateViewController(identifier: "DetailViewController") as? DetailViewController
+        self.navigationController?.pushViewController(vc!, animated: true)
     }
-    */
-
 }

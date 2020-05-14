@@ -68,7 +68,7 @@
         <scene sceneID="wDS-gy-hEc">
             <objects>
                 <viewController id="vgt-FL-Zan" customClass="ListViewController" customModule="NCA_Knee_Deviation" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ukU-Js-HmS">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="ukU-Js-HmS">
                         <rect key="frame" x="0.0" y="0.0" width="712" height="1006.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -77,13 +77,26 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="X4M-t4-b9h">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="X4M-t4-b9h" customClass="TableViewCell" customModule="NCA_Knee_Deviation" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="712" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X4M-t4-b9h" id="sTC-lE-pmQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="712" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j0n-9E-pjU">
+                                                    <rect key="frame" x="70" y="11" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="lbl" destination="j0n-9E-pjU" id="FyC-qJ-PmH"/>
+                                            <outlet property="textLabel" destination="j0n-9E-pjU" id="3uQ-de-KS2"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -117,6 +130,7 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="72C-eK-euk" firstAttribute="centerX" secondItem="xRt-pV-E0T" secondAttribute="centerX" id="634-cv-x4Y"/>
                             <constraint firstItem="xRt-pV-E0T" firstAttribute="leading" secondItem="54a-Ca-INC" secondAttribute="leading" id="JCh-f5-zPo"/>
                             <constraint firstItem="54a-Ca-INC" firstAttribute="trailing" secondItem="xRt-pV-E0T" secondAttribute="trailing" constant="298" id="Q9f-H2-g0G"/>
                             <constraint firstItem="72C-eK-euk" firstAttribute="top" secondItem="54a-Ca-INC" secondAttribute="top" id="RfI-M5-vCP"/>
@@ -135,6 +149,30 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eru-7i-347" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1000.0000000000001" y="70.854271356783926"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="z70-5N-CcA">
+            <objects>
+                <viewController storyboardIdentifier="DetailViewController" id="Tyh-pY-bgK" customClass="DetailViewController" customModule="NCA_Knee_Deviation" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="G2A-LN-NKH">
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nxf-Li-5Av">
+                                <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="blV-iG-926"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="G2A-LN-NKH" id="gwI-vM-dAy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wVZ-NE-ncp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1759.7122302158275" y="56.78391959798995"/>
         </scene>
     </scenes>
     <resources>

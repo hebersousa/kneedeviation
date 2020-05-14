@@ -13,6 +13,8 @@
 		9003F67523E6D0AF00E1A490 /* TransformPointToView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9003F67423E6D0AF00E1A490 /* TransformPointToView.swift */; };
 		9003F67723E6DEEE00E1A490 /* JointBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9003F67623E6DEEE00E1A490 /* JointBody.swift */; };
 		9003F67923E7479400E1A490 /* Angle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9003F67823E7479400E1A490 /* Angle.swift */; };
+		900B73D5246D60D300B0F315 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900B73D4246D60D300B0F315 /* TableViewCell.swift */; };
+		900B73D7246D689D00B0F315 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900B73D6246D689D00B0F315 /* DetailViewController.swift */; };
 		9032DA202465D9D10084F433 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9032DA1F2465D9D10084F433 /* Photos.framework */; };
 		9032DA262465F7800084F433 /* ImageIOService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9032DA252465F7800084F433 /* ImageIOService.swift */; };
 		9036998323DA399D00E04970 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9036998223DA399D00E04970 /* AppDelegate.swift */; };
@@ -63,6 +65,8 @@
 		9003F67423E6D0AF00E1A490 /* TransformPointToView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformPointToView.swift; sourceTree = "<group>"; };
 		9003F67623E6DEEE00E1A490 /* JointBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JointBody.swift; sourceTree = "<group>"; };
 		9003F67823E7479400E1A490 /* Angle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Angle.swift; sourceTree = "<group>"; };
+		900B73D4246D60D300B0F315 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		900B73D6246D689D00B0F315 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		9032DA1D2465D8D80084F433 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		9032DA1F2465D9D10084F433 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		9032DA252465F7800084F433 /* ImageIOService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageIOService.swift; sourceTree = "<group>"; };
@@ -200,6 +204,8 @@
 				9036998623DA399D00E04970 /* Scene.swift */,
 				9036998823DA399D00E04970 /* ViewController.swift */,
 				9036998A23DA399D00E04970 /* Main.storyboard */,
+				900B73D6246D689D00B0F315 /* DetailViewController.swift */,
+				900B73D4246D60D300B0F315 /* TableViewCell.swift */,
 				9036998D23DA399E00E04970 /* Assets.xcassets */,
 				9036998F23DA399E00E04970 /* LaunchScreen.storyboard */,
 				9036999223DA399E00E04970 /* Info.plist */,
@@ -485,10 +491,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				90679F9E2449C6DD00821791 /* AlertService.swift in Sources */,
+				900B73D5246D60D300B0F315 /* TableViewCell.swift in Sources */,
 				90679FA42449E9B000821791 /* FirebaseService.swift in Sources */,
 				9036998923DA399D00E04970 /* ViewController.swift in Sources */,
 				9036998723DA399D00E04970 /* Scene.swift in Sources */,
 				9003F67923E7479400E1A490 /* Angle.swift in Sources */,
+				900B73D7246D689D00B0F315 /* DetailViewController.swift in Sources */,
 				90A7443A244A2A4400C20D75 /* EncodableExtension.swift in Sources */,
 				90940E9E2418341C00D93E0F /* TransformBodyPositionToView.swift in Sources */,
 				9036998323DA399D00E04970 /* AppDelegate.swift in Sources */,
