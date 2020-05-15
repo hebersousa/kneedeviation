@@ -14,6 +14,7 @@ import ARKit
 class TransformBodyPositionToView : TransformPointToView{
     
     var body : JointBody
+    var joints : Array<CGPoint> = []
     
     init(body: JointBody, viewPortSize:CGSize, imageSize: CGSize, orientation:UIInterfaceOrientation){
         self.body = body
@@ -41,6 +42,10 @@ class TransformBodyPositionToView : TransformPointToView{
         self.body.wRightKnee = self.pointToWorld(point: body.rightKnee)
         self.body.wLeftFoot = self.pointToWorld(point: body.leftFoot)
         self.body.wRightFoot = self.pointToWorld(point: body.rightFoot)
+        
+        let bdy = self.body
+        self.joints = [bdy.head, bdy.torax, bdy.root, bdy.rightShoulder, bdy.rightElbow, bdy.rightHand, bdy.leftShoulder, bdy.leftElbow, bdy.leftHand, bdy.rightHip, bdy.rightKnee, bdy.rightFoot, bdy.leftHip, bdy.leftKnee, bdy.leftFoot]
+           
         
     }
 }

@@ -27,6 +27,7 @@
 		9036999C23DA399E00E04970 /* BasicARTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9036999B23DA399E00E04970 /* BasicARTests.swift */; };
 		903699A723DA399E00E04970 /* BasicARUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903699A623DA399E00E04970 /* BasicARUITests.swift */; };
 		904E07FE243F7B8A0033DC58 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904E07FD243F7B8A0033DC58 /* ListViewController.swift */; };
+		9059A7E1246EE96B00D29F49 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9059A7E0246EE96B00D29F49 /* CustomSlider.swift */; };
 		90679F9C2449BA8800821791 /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90679F9B2449BA8800821791 /* Patient.swift */; };
 		90679F9E2449C6DD00821791 /* AlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90679F9D2449C6DD00821791 /* AlertService.swift */; };
 		90679FA22449E5E000821791 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 90679FA12449E5E000821791 /* GoogleService-Info.plist */; };
@@ -86,6 +87,7 @@
 		903699A623DA399E00E04970 /* BasicARUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicARUITests.swift; sourceTree = "<group>"; };
 		903699A823DA399E00E04970 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		904E07FD243F7B8A0033DC58 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		9059A7E0246EE96B00D29F49 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		90679F9B2449BA8800821791 /* Patient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
 		90679F9D2449C6DD00821791 /* AlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertService.swift; sourceTree = "<group>"; };
 		90679FA12449E5E000821791 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				9036999223DA399E00E04970 /* Info.plist */,
 				9003F67423E6D0AF00E1A490 /* TransformPointToView.swift */,
 				904E07FD243F7B8A0033DC58 /* ListViewController.swift */,
+				9059A7E0246EE96B00D29F49 /* CustomSlider.swift */,
 			);
 			path = BasicAR;
 			sourceTree = "<group>";
@@ -491,6 +494,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				90679F9E2449C6DD00821791 /* AlertService.swift in Sources */,
+				9059A7E1246EE96B00D29F49 /* CustomSlider.swift in Sources */,
 				900B73D5246D60D300B0F315 /* TableViewCell.swift in Sources */,
 				90679FA42449E9B000821791 /* FirebaseService.swift in Sources */,
 				9036998923DA399D00E04970 /* ViewController.swift in Sources */,

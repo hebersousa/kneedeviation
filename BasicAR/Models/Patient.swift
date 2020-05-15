@@ -23,6 +23,7 @@ struct Patient: Codable, Identifiable{
     var order : Int
     var leftAngle: Angle?
     var rightAngle: Angle?
+    var jointBody: JointBody?
     
     init(name: String, age: Int, gender: String) {
         self.name = name
@@ -31,6 +32,6 @@ struct Patient: Codable, Identifiable{
         self.order = 0
         self.leftAngle = nil
         self.rightAngle = nil
-        
+        self.jointBody = nil
     }
 }

@@ -22,6 +22,10 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
     
     @IBOutlet var sceneView: ARSKView!
    
+    @IBOutlet weak var focusLabel: UILabel!
+    
+    @IBOutlet weak var slider: UISlider!
+    
     @IBOutlet weak var patienceButton: UIButton!
     @IBOutlet weak var button: UIButton!
     var ciimage : CIImage = CIImage()
@@ -30,12 +34,14 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
     var countFrames = 1000.0
     var rightAngle : Angle = Angle()
     var leftAngle : Angle = Angle()
+    var jointBody : JointBody? = nil
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        
+        
         self.navigationController?.isNavigationBarHidden = true
         // Set the view's delegate
         sceneView.delegate = self
@@ -100,9 +106,12 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
         
         // Create a session configuration
         let configuration = ARBodyTrackingConfiguration()
-
+        configuration.isAutoFocusEnabled = false
+        
         // Run the view's session
         sceneView.session.run(configuration)
+        
+        adjustFocus(lPosition: 0.7)
         
         let yourline = SKShapeNode()
         let pathToDraw = CGMutablePath()
@@ -111,6 +120,50 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
         yourline.path = pathToDraw
         yourline.strokeColor = SKColor.red
         sceneView.scene?.addChild(yourline)
+    }
+    
+    var lensPositon: Float = -0.1
+    
+    func switchFocus() {
+        
+        if lensPositon > 0.9 {
+                 lensPositon = 0.0
+         }
+         else {
+              lensPositon += 0.1
+         }
+        
+        adjustFocus(lPosition: lensPositon)
+        
+    }
+        
+    
+    func adjustFocus(lPosition : Float) {
+        
+        let camera = getDevice(position: AVCaptureDevice.Position.back)
+        do {
+            try
+                camera?.lockForConfiguration()
+                camera?.setFocusModeLocked(lensPosition: lPosition)
+                camera?.unlockForConfiguration()
+                self.focusLabel.text = "Focus \(lPosition)"
+                self.slider.value = lPosition
+            
+        } catch  {
+            print(error)
+        }
+    }
+    
+    //Get the device (Front or Back)
+    func getDevice(position: AVCaptureDevice.Position) -> AVCaptureDevice? {
+       let devices = AVCaptureDevice.devices();
+       for de in devices {
+          let deviceConverted = de as! AVCaptureDevice
+          if(deviceConverted.position == position){
+             return deviceConverted
+          }
+       }
+       return nil
     }
     
     func estilizeButton(_ bt : UIButton){
@@ -221,6 +274,16 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
         return context.createCGImage(ciImage, from: ciImage.extent)
     }
     
+    @IBAction func slider(_ sender: Any) {
+        
+        let sldr = sender as! UISlider
+        
+        
+        let value = Float(floor(10 * sldr.value)/10)
+        adjustFocus(lPosition: value)
+        
+       }
+    
     @IBAction func buttonAction(_ sender: Any) {
         
         
@@ -229,12 +292,14 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
             self.saveImage(key: String(count))
             let leftA = self.leftAngle
             let rightA = self.rightAngle
+            let joints = self.jointBody
             
             AlertService.add(in: self) { patient in
                 var p = patient
                 p.order = count
                 p.leftAngle = leftA
                 p.rightAngle = rightA
+                p.jointBody = joints
                 
                 print(p)
                 
@@ -242,18 +307,8 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
                 
                     //self.saveImage(key: id)
                 }
-                
             }
-                       
-            
         }
-        
-        
-        
-
-        
-        
-   
     }
     
     func saveImage(key: String){
@@ -343,8 +398,8 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
     
     func drawBody(body :ARBody2D, viewPortSize:CGSize, imageSize: CGSize, orientation:UIInterfaceOrientation){
         
-        let jointBody = JointBody(body: body)
-        var transform = TransformBodyPositionToView(body: jointBody, viewPortSize: viewPortSize, imageSize: imageSize, orientation: orientation)
+        self.jointBody = JointBody(body: body, imageSize: imageSize)
+        let transform = TransformBodyPositionToView(body: self.jointBody!, viewPortSize: viewPortSize, imageSize: imageSize, orientation: orientation)
 
         let body = transform.body
         
@@ -363,13 +418,11 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
         addLine(point1: body.rightHip, point2: body.rightKnee)
         addLine(point1: body.rightKnee, point2: body.rightFoot)
         
-            for joint in jointBody.joints{
-                
-                let p = transform.pointToView(point: joint)
-                addPoint(point: p)
-            }
+        let joints = transform.joints
         
-            
+        for point in joints{
+            addPoint(point: point)
+        }
     }
     
     
@@ -377,8 +430,9 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
     
     func drawLabels(body :ARBody2D, viewPortSize:CGSize, imageSize: CGSize, orientation:UIInterfaceOrientation){
         
-        let jointBody = JointBody(body: body)
-        let transform = TransformBodyPositionToView(body: jointBody, viewPortSize: viewPortSize, imageSize: imageSize, orientation: orientation)
+        self.jointBody = JointBody(body: body, imageSize: imageSize)
+        
+        let transform = TransformBodyPositionToView(body: self.jointBody!, viewPortSize: viewPortSize, imageSize: imageSize, orientation: orientation)
 
         let body = transform.body
         
@@ -403,7 +457,7 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
         
         if !lang.isNaN  {
              lang = Float(floor(10*lang)/10) // leaves on first three decimal places
-             let leftText = " \( lang)\n\(ltype)"
+            let leftText = " \( lang)\n\(ltype)"
             print(leftText)
             addLabel(point: body.leftKnee, text: leftText)
         }
@@ -461,34 +515,6 @@ class ViewController: UIViewController, ARSKViewDelegate, ARSessionDelegate {
         
         
     }
-    
-    
-    @objc
-    private func save() {
-        if let buildingImage = UIImage(named: "building") {
-            DispatchQueue.global(qos: .background).async {
-                ImageIOService.store(image: buildingImage,
-                           forKey: "buildingImage",
-                           withStorageType: .fileSystem)
-            }
-        }
-    }
-    
-    @objc
-    private func display() {
-        DispatchQueue.global(qos: .background).async {
-            if let savedImage = ImageIOService.retrieveImage(forKey: "buildingImage",
-                                                   inStorageType: .fileSystem) {
-                /*
-                DispatchQueue.main.async {
-                    self.savedImageDisplayImageView.image = savedImage
-                }
-                */
-            }
-        }
-    }
-    
-    
     
    
 }

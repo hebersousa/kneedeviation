@@ -8,9 +8,8 @@
 
 import Foundation
 import ARKit
-class JointBody{
+class JointBody: Codable {
     
-    var body : ARBody2D
     var root : CGPoint = CGPoint()
     var head : CGPoint = CGPoint()
     var leftShoulder : CGPoint = CGPoint()
@@ -32,12 +31,11 @@ class JointBody{
     var wLeftKnee : CGPoint = CGPoint()
     var wRightKnee : CGPoint = CGPoint()
     var torax = CGPoint()
-    var joints : Array<CGPoint> = []
+    var imageSize: CGSize
     
-    init(body: ARBody2D){
+    init(body: ARBody2D, imageSize: CGSize){
         
-        self.body = body
-        
+        self.imageSize = imageSize
         let definition = body.skeleton.definition
          
         let head_ = definition.index(for: ARSkeleton.JointName.head)
@@ -78,7 +76,7 @@ class JointBody{
         self.rightShoulder = simd2Point(simd: joint[rightShoulder])
         self.torax = simd2Point(simd: joint[torax])
         
-        self.joints = [self.head,self.torax, self.root, self.rightShoulder, self.rightElbow, self.rightHand, self.leftShoulder, self.leftElbow, self.leftHand, self.rightHip, self.rightKnee, self.rightFoot, self.leftHip, self.leftKnee, self.leftFoot]
+
       
     }
     
@@ -88,4 +86,5 @@ class JointBody{
         point.y = CGFloat(simd[1])
         return point
     }
+    
 }
