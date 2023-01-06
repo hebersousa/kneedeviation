@@ -22,11 +22,10 @@ objectivity of the measurement through the automatic identification of the posit
 the joints in the patient’s body. For this, a mobile application is developed using Apple’s
 ARKit to later assess the accuracy and reproducibility of the proposed methodology.
 
-You can download the full article at https://drive.google.com/file/d/1gO99aobQm5RYeTtq_5fQayFWCcVMsezC/view?usp=share_link
-
+You can download the full article in portuguese at https://drive.google.com/file/d/1gO99aobQm5RYeTtq_5fQayFWCcVMsezC/view?usp=share_link
 
 ![alt text](https://drive.google.com/uc?export=download&id=12cmjk0OMBuGF-u1TCpf28xJ1D9gfHYkh)
 
 
-**Keywords**: Apple ARKit, Swift, knee osteoarthritis, malalignment of the lower limb, augmented reality,
+**Keywords** : Apple ARKit, Swift, knee osteoarthritis, malalignment of the lower limb, augmented reality,
 orthopedics, motion capture
