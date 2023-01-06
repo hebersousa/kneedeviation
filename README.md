@@ -28,5 +28,5 @@ You can download the full article at https://drive.google.com/file/d/1gO99aobQm5
 ![alt text](https://drive.google.com/uc?export=download&id=12cmjk0OMBuGF-u1TCpf28xJ1D9gfHYkh)
 
 
-Keywords: knee osteoarthritis, malalignment of the lower limb, augmented reality,
+**Keywords**: knee osteoarthritis, malalignment of the lower limb, augmented reality,
 orthopedics, motion capture, Apple ARKit
